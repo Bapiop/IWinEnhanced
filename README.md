@@ -1,4 +1,4 @@
-# IWinEnhanced v2.0
+# IWinEnhanced v2.0.1 (Updated for druids)
 
 1-button rotation macros for Turtle Druids, Paladins and Warriors.
 
