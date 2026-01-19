@@ -6,6 +6,23 @@ Author: Agamemnoth (discord)
 
 Special thanks to contributor: Vlad (discord tfw.vlad)
 
+# Changelog
+Bapiop modifications:
+
+### Added
+- **Shred Priority with Clearcasting**: Added condition for Shred to have casting priority over Claw/Rake/Rip when the Clearcasting buff is active. This allows free energy Shred casts for maximum damage output.
+
+
+### Changed
+- **Reshift Mana Threshold**: Lowered the mana requirement for Reshift from 70% to 40% druid mana percentage.
+
+- **Energy Costs Adjustment**: Updated energy costs for Claw, Rake, and Shred to reflect Idol of Ferocity and T2.5 3/5 Genesis set reductions.
+  - Claw: 40 -> 34
+  - Rake: 35 -> 29
+  - Shred: 48 -> 45
+- **Rip Combo Point Requirement**: Modified Rip casting conditions to require exactly 2 combo points all the time.
+- **Berserk Casting**: Disable automatic Berserk casting in the cat rotation to prevent unwanted activation.
+
 ## Mods Dependencies
 
 Mandatory Mods:
