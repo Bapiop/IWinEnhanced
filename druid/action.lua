@@ -305,7 +305,7 @@ function IWin:Reshift()
 		and IWin:GetTalentRank(3, 2) ~= 0
 		and UnitMana("player") < 20
 		and (
-					IWin:GetPlayerDruidManaPercent() > 70
+					IWin:GetPlayerDruidManaPercent() > 40
 				or (
 						GetNumPartyMembers() ~= 0
 						and IWin:IsDruidManaAvailable("Reshift")
@@ -377,15 +377,20 @@ function IWin:Shred()
 		and not IWin:IsOnCooldown("Shred")
 		and IWin:IsEnergyAvailable("Shred")
 		and (
-				not IWin:IsBuffActive("target", "Rake", "player")
-				or not IWin:IsBuffActive("target", "Rip", "player")
-			)
-		and (
-				(
-					UnitMana("player") < 100
-					and IWin_Settings["frontShred"] == "on"
+				IWin:IsBuffActive("player", "Clearcasting")
+				or (
+					(
+						not IWin:IsBuffActive("target", "Rake", "player")
+						or not IWin:IsBuffActive("target", "Rip", "player")
+					)
+					and (
+							(
+								UnitMana("player") < 100
+								and IWin_Settings["frontShred"] == "on"
+							)
+							or IWin:IsBehind()
+						)
 				)
-				or IWin:IsBehind()
 			) then
 				IWin_CombatVar["queueGCD"] = false
 				CastSpellByName("Shred")
@@ -393,18 +398,21 @@ function IWin:Shred()
 end
 
 function IWin:SetReservedEnergyShred()
-	if (
-			not IWin:IsBuffActive("target", "Rake", "player")
-			or not IWin:IsBuffActive("target", "Rip", "player")
-		)
-		and (
-				(
-					UnitMana("player") < 100
-					and IWin_Settings["frontShred"] == "on"
+	if IWin:IsBuffActive("player", "Clearcasting")
+		or (
+			(
+				not IWin:IsBuffActive("target", "Rake", "player")
+				or not IWin:IsBuffActive("target", "Rip", "player")
+			)
+			and (
+					(
+						UnitMana("player") < 100
+						and IWin_Settings["frontShred"] == "on"
+					)
+					or IWin:IsBehind()
 				)
-				or IWin:IsBehind()
-			) then
-			IWin:SetReservedEnergy("Shred", "nocooldown")
+		) then
+		IWin:SetReservedEnergy("Shred", "nocooldown")
 	end
 end
 
