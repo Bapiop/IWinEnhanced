@@ -12,15 +12,15 @@ IWin_RageCost = {
 }
 
 IWin_EnergyCost = {
-	["Claw"] = 45 - IWin:GetTalentRank(2, 1),
+	["Claw"] = 39 - IWin:GetTalentRank(2, 1),
 	["Cower"] = 20,
 	["Ferocious Bite"] = 35,
 	["Mangle"] = 45,
 	["Pounce"] = 50,
-	["Rake"] = 40 - IWin:GetTalentRank(2, 1),
+	["Rake"] = 34 - IWin:GetTalentRank(2, 1),
 	["Ravage"] = 60,
 	["Rip"] = 30,
-	["Shred"] = 60 - IWin:GetTalentRank(2, 13) * 6,
+	["Shred"] = 57 - IWin:GetTalentRank(2, 13) * 6,
 	["Tiger's Fury"] = 30,
 }
 

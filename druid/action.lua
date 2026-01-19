@@ -324,15 +324,15 @@ function IWin:Rip()
 		and not IWin:IsBuffActive("target","Rip","player")
 		and (
 				(
-					GetComboPoints() == 3
+					GetComboPoints() == 2
 					and IWin:GetTimeToDie() > 10
 					and IWin:GetTimeToDie() < 14
 				) or (
-					GetComboPoints() == 4
+					GetComboPoints() == 2
 					and IWin:GetTimeToDie() > 12
 					and IWin:GetTimeToDie() < 16
 				) or (
-					GetComboPoints() == 5
+					GetComboPoints() == 2
 					and IWin:GetTimeToDie() > 14
 				)
 			)
@@ -350,15 +350,15 @@ function IWin:SetReservedEnergyRip()
 	if not IWin:IsBuffActive("target","Rip","player")
 		and (
 				(
-					GetComboPoints() == 3
+					GetComboPoints() == 2
 					and IWin:GetTimeToDie() > 10
 					and IWin:GetTimeToDie() < 14
 				) or (
-					GetComboPoints() == 4
+					GetComboPoints() == 2
 					and IWin:GetTimeToDie() > 12
 					and IWin:GetTimeToDie() < 16
 				) or (
-					GetComboPoints() == 5
+					GetComboPoints() == 2
 					and IWin:GetTimeToDie() > 14
 				)
 			)
