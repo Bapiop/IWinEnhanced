@@ -257,18 +257,14 @@ function IWin:FerociousBite()
 		and IWin_CombatVar["queueGCD"]
 		and not IWin:IsOnCooldown("Ferocious Bite")
 		and IWin:IsEnergyAvailable("Ferocious Bite")
-		and (
-				GetComboPoints() == 5
-				or IWin:GetTimeToDie() < 10
-			) then
+		and GetComboPoints() == 5 then
 				IWin_CombatVar["queueGCD"] = false
 				CastSpellByName("Ferocious Bite")
 	end
 end
 
 function IWin:SetReservedEnergyFerocious()
-	if 	GetComboPoints() == 5
-			or IWin:GetTimeToDie() < 10 then
+	if GetComboPoints() == 5 then
 				IWin:SetReservedEnergy("Ferocious Bite", "nocooldown")
 	end
 end
