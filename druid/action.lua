@@ -279,12 +279,14 @@ function IWin:Rake()
 		and not IWin:IsOnCooldown("Rake")
 		and IWin:IsEnergyAvailable("Rake")
 		and not IWin:IsBuffActive("target", "Rake", "player")
+		and GetTime() - IWin_CombatVar["lastRakeTime"] > 1
 		and not (
 					UnitCreatureType("target") == "Undead"
 					or UnitCreatureType("target") == "Mechanical"
 					or UnitCreatureType("target") == "Elemental"
 				) then
 					IWin_CombatVar["queueGCD"] = false
+					IWin_CombatVar["lastRakeTime"] = GetTime()
 					CastSpellByName("Rake")
 	end
 end
@@ -294,7 +296,8 @@ function IWin:SetReservedEnergyRake()
 				UnitCreatureType("target") == "Undead"
 				or UnitCreatureType("target") == "Mechanical"
 				or UnitCreatureType("target") == "Elemental"
-			) then
+			)
+		and GetTime() - IWin_CombatVar["lastRakeTime"] > 1 then
 				IWin:SetReservedEnergy("Rake", "buff", "target")
 	end
 end

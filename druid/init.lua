@@ -9,6 +9,7 @@ IWin_CombatVar = {
 	["lastMoonkinSpell"] = "Starfire",
 	["lastMoonkinSpellTime"] = 0,
 	["energyPerSecondPrediction"] = 0,
+	["lastRakeTime"] = 0,
 }
 
 IWin_Target = {
