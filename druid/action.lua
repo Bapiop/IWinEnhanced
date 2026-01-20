@@ -257,7 +257,8 @@ function IWin:FerociousBite()
 		and IWin_CombatVar["queueGCD"]
 		and not IWin:IsOnCooldown("Ferocious Bite")
 		and IWin:IsEnergyAvailable("Ferocious Bite")
-		and GetComboPoints() == 5 then
+		and GetComboPoints() == 5
+		and not IWin:IsShortFight() then
 				IWin_CombatVar["queueGCD"] = false
 				CastSpellByName("Ferocious Bite")
 	end
@@ -276,6 +277,7 @@ function IWin:Rake()
 		and IWin:IsEnergyAvailable("Rake")
 		and not IWin:IsBuffActive("target", "Rake", "player")
 		and GetTime() - IWin_CombatVar["lastRakeTime"] > 1
+		and not IWin:IsShortFight()
 		and not (
 					UnitCreatureType("target") == "Undead"
 					or UnitCreatureType("target") == "Mechanical"
@@ -321,17 +323,18 @@ function IWin:Rip()
 		and not IWin:IsOnCooldown("Rip")
 		and IWin:IsEnergyAvailable("Rip")
 		and not IWin:IsBuffActive("target","Rip","player")
+		and not IWin:IsShortFight()
 		and (
 				(
 					GetComboPoints() == 2
 					and IWin:GetTimeToDie() > 10
 					and IWin:GetTimeToDie() < 14
 				) or (
-					GetComboPoints() == 2
+					GetComboPoints() == 3
 					and IWin:GetTimeToDie() > 12
 					and IWin:GetTimeToDie() < 16
 				) or (
-					GetComboPoints() == 2
+					GetComboPoints() == 4
 					and IWin:GetTimeToDie() > 14
 				)
 			)
@@ -353,11 +356,11 @@ function IWin:SetReservedEnergyRip()
 					and IWin:GetTimeToDie() > 10
 					and IWin:GetTimeToDie() < 14
 				) or (
-					GetComboPoints() == 2
+					GetComboPoints() == 3
 					and IWin:GetTimeToDie() > 12
 					and IWin:GetTimeToDie() < 16
 				) or (
-					GetComboPoints() == 2
+					GetComboPoints() == 4
 					and IWin:GetTimeToDie() > 14
 				)
 			)
@@ -376,19 +379,14 @@ function IWin:Shred()
 		and not IWin:IsOnCooldown("Shred")
 		and IWin:IsEnergyAvailable("Shred")
 		and (
-				IWin:IsBuffActive("player", "Clearcasting")
+				(
+					IWin:IsBuffActive("player", "Clearcasting")
+					and IWin:IsBehind()
+				)
 				or (
-					(
-						not IWin:IsBuffActive("target", "Rake", "player")
-						or not IWin:IsBuffActive("target", "Rip", "player")
-					)
-					and (
-							(
-								UnitMana("player") < 100
-								and IWin_Settings["frontShred"] == "on"
-							)
-							or IWin:IsBehind()
-						)
+					UnitCreatureType("target") == "Undead"
+					or UnitCreatureType("target") == "Mechanical"
+					or UnitCreatureType("target") == "Elemental"
 				)
 			) then
 				IWin_CombatVar["queueGCD"] = false
@@ -397,19 +395,16 @@ function IWin:Shred()
 end
 
 function IWin:SetReservedEnergyShred()
-	if IWin:IsBuffActive("player", "Clearcasting")
-		or (
+	if (
 			(
-				not IWin:IsBuffActive("target", "Rake", "player")
-				or not IWin:IsBuffActive("target", "Rip", "player")
+				IWin:IsBuffActive("player", "Clearcasting")
+				and IWin:IsBehind()
 			)
-			and (
-					(
-						UnitMana("player") < 100
-						and IWin_Settings["frontShred"] == "on"
-					)
-					or IWin:IsBehind()
-				)
+			or (
+				UnitCreatureType("target") == "Undead"
+				or UnitCreatureType("target") == "Mechanical"
+				or UnitCreatureType("target") == "Elemental"
+			)
 		) then
 		IWin:SetReservedEnergy("Shred", "nocooldown")
 	end

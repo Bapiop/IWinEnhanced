@@ -11,7 +11,8 @@ Bapiop modifications:
 
 ### Added
 - **Shred Priority with Clearcasting**: Added condition for Shred to have casting priority over Claw/Rake/Rip when the Clearcasting buff is active. This allows free energy Shred casts for maximum damage output.
-
+- **Rake Logic**: Added a 1-second throttle to prevent Rake from being cast multiple times in quick succession when the DoT expires.
+- **Short Fight Detection**: Implemented logic to detect short fights (TTD < 15 seconds) and limit abilities accordingly.
 
 ### Changed
 - **Reshift Mana Threshold**: Lowered the mana requirement for Reshift from 70% to 40% druid mana percentage.
@@ -22,6 +23,9 @@ Bapiop modifications:
   - Shred: 48 -> 45
 - **Rip Combo Point Requirement**: Modified Rip casting conditions to require exactly 2 combo points all the time.
 - **Berserk Casting**: Disable automatic Berserk casting in the cat rotation to prevent unwanted activation.
+- **Ferocious Bite Condition**: Modified to only cast with exactly 5 combo points, removing the premature casting on low TTD.
+- **Rip, Rake, Ferocious Bite on Short Fights**: Added checks to skip these abilities on short fights to conserve energy.
+- **Shred on Short Fights**: Limited Shred casting to only when Clearcasting is active on short fights, allowing only Claw otherwise.
 
 ## Mods Dependencies
 

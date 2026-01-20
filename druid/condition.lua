@@ -13,3 +13,8 @@ function IWin:GetCastTimeStarfire()
 	end
 	return IWin_CastTime["Starfire"]
 end
+
+-- allow 15 seconds or less to be considered a short fight, ensures that addon works on lower level mobs
+function IWin:IsShortFight()
+	return IWin:GetTimeToDie() < 15
+end
