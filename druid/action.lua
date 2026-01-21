@@ -32,12 +32,21 @@ function IWin:CancelForm()
 	IWin:CancelPlayerBuff("Cat Form")
 end
 
+function IWin:Reshift()
+	if IWin:IsSpellLearnt("Reshift")
+		and UnitLevel("player") == 60 then
+			CastSpellByName("Reshift")
+	else
+		IWin:CancelForm()
+	end
+end
+
 function IWin:CancelRoot()
 	if not IWin:IsInRange()
 		or not IWin:IsTanking() then
 			for root in IWin_Root do
 				if IWin:IsBuffActive("player", IWin_Root[root]) then
-					IWin:CancelForm()
+					IWin:Reshift()
 					break
 				end
 			end
@@ -47,7 +56,7 @@ end
 function IWin:CancelRootReact()
 	for root in IWin_Root do
 		if IWin:IsBuffActive("player", IWin_Root[root]) then
-			IWin:CancelForm()
+			IWin:Reshift()
 			break
 		end
 	end
@@ -57,7 +66,7 @@ function IWin:CancelSlow()
 	if not IWin:IsInRange() then
 		for slow in IWin_Slow do
 			if IWin:IsBuffActive("player", IWin_Slow[slow]) then
-				IWin:CancelForm()
+				IWin:Reshift()
 				break
 			end
 		end
@@ -67,9 +76,34 @@ end
 function IWin:CancelSlowReact()
 	for slow in IWin_Slow do
 		if IWin:IsBuffActive("player", IWin_Slow[slow]) then
-			IWin:CancelForm()
+			IWin:Reshift()
 			break
 		end
+	end
+end
+
+function IWin:Powershift()
+	if IWin_CombatVar["queueGCD"]
+		and IWin:GetTalentRank(3, 2) ~= 0
+		and (
+				(
+					UnitMana("player") < 20
+					and UnitPowerType("player") == 3 --energy
+				) or (
+					UnitMana("player") < 10
+					and UnitPowerType("player") == 1 --rage
+				)
+			)
+		and (
+					IWin:GetPlayerDruidManaPercent() > 40
+				or (
+						GetNumPartyMembers() ~= 0
+						and IWin:IsDruidManaAvailable("Reshift")
+						and IWin:GetPlayerDruidManaPercent() > 20
+					)
+			) then
+				IWin_CombatVar["queueGCD"] = false
+				IWin:Reshift()
 	end
 end
 
@@ -300,23 +334,6 @@ function IWin:SetReservedEnergyRake()
 	end
 end
 
-function IWin:Reshift()
-	if IWin:IsSpellLearnt("Reshift")
-		and IWin_CombatVar["queueGCD"]
-		and IWin:GetTalentRank(3, 2) ~= 0
-		and UnitMana("player") < 20
-		and (
-					IWin:GetPlayerDruidManaPercent() > 40
-				or (
-						GetNumPartyMembers() ~= 0
-						and IWin:IsDruidManaAvailable("Reshift")
-					)
-			) then
-				IWin_CombatVar["queueGCD"] = false
-				CastSpellByName("Reshift")
-	end
-end
-
 function IWin:Rip()
 	if IWin:IsSpellLearnt("Rip")
 		and IWin_CombatVar["queueGCD"]
@@ -335,7 +352,7 @@ function IWin:Rip()
 					and IWin:GetTimeToDie() < 16
 				) or (
 					GetComboPoints() == 4
-					and IWin:GetTimeToDie() > 14
+					and IWin:GetTimeToDie() > 14	
 				)
 			)
 		and not (

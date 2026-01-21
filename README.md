@@ -1,4 +1,4 @@
-# IWinEnhanced v2.0.1 (Updated for druids)
+# IWinEnhanced v2.0.4 (Updated for druids)
 
 1-button rotation macros for Turtle Druids, Paladins and Warriors.
 
@@ -6,22 +6,25 @@ Author: Agamemnoth (discord)
 
 Special thanks to contributor: Vlad (discord tfw.vlad)
 
-# Changelog
+## Changelog
+
 Bapiop modifications:
 
 ### Added
+
 - **Shred Priority with Clearcasting**: Added condition for Shred to have casting priority over Claw/Rake/Rip when the Clearcasting buff is active. This allows free energy Shred casts for maximum damage output.
 - **Rake Logic**: Added a 1-second throttle to prevent Rake from being cast multiple times in quick succession when the DoT expires.
 - **Short Fight Detection**: Implemented logic to detect short fights (TTD < 15 seconds) and limit abilities accordingly.
 
 ### Changed
+
 - **Reshift Mana Threshold**: Lowered the mana requirement for Reshift from 70% to 40% druid mana percentage.
 
 - **Energy Costs Adjustment**: Updated energy costs for Claw, Rake, and Shred to reflect Idol of Ferocity and T2.5 3/5 Genesis set reductions.
   - Claw: 40 -> 34
   - Rake: 35 -> 29
   - Shred: 48 -> 45
-- **Rip Combo Point Requirement**: Modified Rip casting conditions to require exactly 2 combo points all the time.
+- **Rip Combo Point Requirement**: Modified Rip casting conditions to require 2-4 combo points instead of 3-5.
 - **Berserk Casting**: Disable automatic Berserk casting in the cat rotation to prevent unwanted activation.
 - **Ferocious Bite Condition**: Modified to only cast with exactly 5 combo points, removing the premature casting on low TTD.
 - **Rip, Rake, Ferocious Bite on Short Fights**: Added checks to skip these abilities on short fights to conserve energy.
@@ -30,20 +33,23 @@ Bapiop modifications:
 ## Mods Dependencies
 
 Mandatory Mods:
-* [SuperWoW](https://github.com/balakethelock/SuperWoW), A mod made for fixing client bugs and expanding the lua-based API used by user interface addons. Used for debuff tracking.
-* [UnitXP](https://codeberg.org/konaka/UnitXP_SP3), Advanced macro conditions and syntax.
-* [Nampower](https://github.com/pepopo978/nampower), Increase cast efficiency on the 1.12.1 client. Used for range checks.
+
+- [SuperWoW](https://github.com/balakethelock/SuperWoW), A mod made for fixing client bugs and expanding the lua-based API used by user interface addons. Used for debuff tracking.
+- [UnitXP](https://codeberg.org/konaka/UnitXP_SP3), Advanced macro conditions and syntax.
+- [Nampower](https://github.com/pepopo978/nampower), Increase cast efficiency on the 1.12.1 client. Used for range checks.
 
 ## Addons Dependencies
 
 Mandatory Addons:
-* [SuperCleveRoidMacros](https://github.com/jrc13245/SuperCleveRoidMacros), Even more advanced macro conditions and syntax.
+
+- [SuperCleveRoidMacros](https://github.com/jrc13245/SuperCleveRoidMacros), Even more advanced macro conditions and syntax.
 
 Optionnal Addons:
-* [SP_SwingTimer](https://github.com/Profiler781/SP_SwingTimer), An auto attack swing timer. Used for Slam.
-* [PallyPowerTW](https://github.com/ivanovlk/PallyPowerTW), Paladin blessings, auras and judgements assignements.
-* [LibramSwap](https://github.com/Profiler781/Libramswap), Automatically swap librams based on cast.
-* [TimeToKill](https://github.com/jrc13245/TimeToKill), Advanced time-to-kill estimation using RLS (Recursive Least Squares) algorithm. Used for raid targets.
+
+- [SP_SwingTimer](https://github.com/MarcelineVQ/SP_SwingTimer), An auto attack swing timer. Used for Slam.
+- [PallyPowerTW](https://github.com/ivanovlk/PallyPowerTW), Paladin blessings, auras and judgements assignements.
+- [LibramSwap](https://github.com/Profiler781/Libramswap), Automatically swap librams based on cast.
+- [TimeToKill](https://github.com/jrc13245/TimeToKill), Advanced time-to-kill estimation using RLS (Recursive Least Squares) algorithm. Used for raid targets.
 
 # Druid Module
 
