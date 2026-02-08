@@ -86,6 +86,10 @@ function IWin:Powershift()
 	if IWin_CombatVar["queueGCD"]
 		and IWin:GetTalentRank(3, 2) ~= 0
 		and (
+				not IWin:IsBuffActive("player", "Tiger's Fury")
+				or IWin:GetBuffRemaining("player", "Tiger's Fury") < 7
+			)
+		and (
 				(
 					UnitMana("player") <= 20
 					and UnitPowerType("player") == 3 --energy
@@ -299,8 +303,9 @@ function IWin:FerociousBite()
 end
 
 function IWin:SetReservedEnergyFerocious()
-	if GetComboPoints() == 5 then
-				IWin:SetReservedEnergy("Ferocious Bite", "nocooldown")
+	if GetComboPoints() == 5
+		or IWin:GetTimeToDie() < 3 then
+			IWin:SetReservedEnergy("Ferocious Bite", "nocooldown")
 	end
 end
 
@@ -343,15 +348,15 @@ function IWin:Rip()
 		and not IWin:IsShortFight()
 		and (
 				(
-					GetComboPoints() == 2
+					GetComboPoints() == 3
 					and IWin:GetTimeToDie() > 10
 					and IWin:GetTimeToDie() < 14
 				) or (
-					GetComboPoints() == 3
+					GetComboPoints() == 4
 					and IWin:GetTimeToDie() > 12
 					and IWin:GetTimeToDie() < 16
 				) or (
-					GetComboPoints() == 4
+					GetComboPoints() == 5
 					and IWin:GetTimeToDie() > 14	
 				)
 			)
@@ -369,15 +374,15 @@ function IWin:SetReservedEnergyRip()
 	if not IWin:IsBuffActive("target","Rip","player")
 		and (
 				(
-					GetComboPoints() == 2
+					GetComboPoints() == 3
 					and IWin:GetTimeToDie() > 10
 					and IWin:GetTimeToDie() < 14
 				) or (
-					GetComboPoints() == 3
+					GetComboPoints() == 4
 					and IWin:GetTimeToDie() > 12
 					and IWin:GetTimeToDie() < 16
 				) or (
-					GetComboPoints() == 4
+					GetComboPoints() == 5
 					and IWin:GetTimeToDie() > 14
 				)
 			)
@@ -424,6 +429,20 @@ function IWin:SetReservedEnergyShred()
 			)
 		) then
 		IWin:SetReservedEnergy("Shred", "nocooldown")
+	end
+end
+
+function IWin:TigersFury()
+	if IWin:IsSpellLearnt("Tiger's Fury")
+		and not IWin:IsOnCooldown("Tiger's Fury")
+		and IWin:GetTalentRank(2,12) ~= 0
+		and IWin:IsEnergyAvailable("Tiger's Fury")
+		and not IWin:IsBuffActive("player", "Tiger's Fury")
+		and (
+				IWin:GetTimeToDie() > 6
+				or not UnitExists("target")
+			) then
+				CastSpellByName("Tiger's Fury")
 	end
 end
 
