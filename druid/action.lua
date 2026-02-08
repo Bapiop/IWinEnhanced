@@ -87,19 +87,19 @@ function IWin:Powershift()
 		and IWin:GetTalentRank(3, 2) ~= 0
 		and (
 				(
-					UnitMana("player") < 20
+					UnitMana("player") <= 20
 					and UnitPowerType("player") == 3 --energy
 				) or (
-					UnitMana("player") < 10
+					UnitMana("player") <= 10
 					and UnitPowerType("player") == 1 --rage
 				)
 			)
 		and (
-					IWin:GetPlayerDruidManaPercent() > 40
+					IWin:GetPlayerDruidManaPercent() >= 30
 				or (
 						GetNumPartyMembers() ~= 0
 						and IWin:IsDruidManaAvailable("Reshift")
-						and IWin:GetPlayerDruidManaPercent() > 20
+						and IWin:GetPlayerDruidManaPercent() >= 20
 					)
 			) then
 				IWin_CombatVar["queueGCD"] = false
@@ -312,11 +312,11 @@ function IWin:Rake()
 		and not IWin:IsBuffActive("target", "Rake", "player")
 		and GetTime() - IWin_CombatVar["lastRakeTime"] > 1
 		and not IWin:IsShortFight()
-		and not (
-					UnitCreatureType("target") == "Undead"
-					or UnitCreatureType("target") == "Mechanical"
-					or UnitCreatureType("target") == "Elemental"
-				) then
+		and (
+				CleveRoids
+				and CleveRoids.CheckImmunity
+				and not CleveRoids.CheckImmunity("target", "bleed")
+			) then
 					IWin_CombatVar["queueGCD"] = false
 					IWin_CombatVar["lastRakeTime"] = GetTime()
 					CastSpellByName("Rake")
@@ -324,11 +324,11 @@ function IWin:Rake()
 end
 
 function IWin:SetReservedEnergyRake()
-	if not (
-				UnitCreatureType("target") == "Undead"
-				or UnitCreatureType("target") == "Mechanical"
-				or UnitCreatureType("target") == "Elemental"
-			)
+	if (
+			CleveRoids
+			and CleveRoids.CheckImmunity
+			and not CleveRoids.CheckImmunity("target", "bleed")
+		)
 		and GetTime() - IWin_CombatVar["lastRakeTime"] > 1 then
 				IWin:SetReservedEnergy("Rake", "buff", "target")
 	end
@@ -355,11 +355,11 @@ function IWin:Rip()
 					and IWin:GetTimeToDie() > 14	
 				)
 			)
-		and not (
-					UnitCreatureType("target") == "Undead"
-					or UnitCreatureType("target") == "Mechanical"
-					or UnitCreatureType("target") == "Elemental"
-				) then
+		and (
+				CleveRoids
+				and CleveRoids.CheckImmunity
+				and not CleveRoids.CheckImmunity("target", "bleed")
+			) then
 					IWin_CombatVar["queueGCD"] = false
 					CastSpellByName("Rip")
 	end
@@ -381,11 +381,11 @@ function IWin:SetReservedEnergyRip()
 					and IWin:GetTimeToDie() > 14
 				)
 			)
-		and not (
-					UnitCreatureType("target") == "Undead"
-					or UnitCreatureType("target") == "Mechanical"
-					or UnitCreatureType("target") == "Elemental"
-				) then
+		and (
+				CleveRoids
+				and CleveRoids.CheckImmunity
+				and not CleveRoids.CheckImmunity("target", "bleed")
+			) then
 			IWin:SetReservedEnergy("Rip", "nocooldown")
 	end
 end
@@ -396,18 +396,18 @@ function IWin:Shred()
 		and not IWin:IsOnCooldown("Shred")
 		and IWin:IsEnergyAvailable("Shred")
 		and (
-				(
-					IWin:IsBuffActive("player", "Clearcasting")
-					and IWin:IsBehind()
-				)
-				or (
-					UnitCreatureType("target") == "Undead"
-					or UnitCreatureType("target") == "Mechanical"
-					or UnitCreatureType("target") == "Elemental"
-				)
-			) then
-				IWin_CombatVar["queueGCD"] = false
-				CastSpellByName("Shred")
+			(
+				IWin:IsBuffActive("player", "Clearcasting")
+				and IWin:IsBehind()
+			)
+			or (
+				CleveRoids
+				and CleveRoids.CheckImmunity
+				and CleveRoids.CheckImmunity("target", "bleed")
+			)
+		) then
+			IWin_CombatVar["queueGCD"] = false
+			CastSpellByName("Shred")
 	end
 end
 
@@ -418,23 +418,12 @@ function IWin:SetReservedEnergyShred()
 				and IWin:IsBehind()
 			)
 			or (
-				UnitCreatureType("target") == "Undead"
-				or UnitCreatureType("target") == "Mechanical"
-				or UnitCreatureType("target") == "Elemental"
+				CleveRoids
+				and CleveRoids.CheckImmunity
+				and CleveRoids.CheckImmunity("target", "bleed")
 			)
 		) then
 		IWin:SetReservedEnergy("Shred", "nocooldown")
-	end
-end
-
-function IWin:TigersFury()
-	if IWin:IsSpellLearnt("Tiger's Fury")
-		and not IWin:IsOnCooldown("Tiger's Fury")
-		and IWin:GetTalentRank(2,12) ~= 0
-		and IWin:IsEnergyAvailable("Tiger's Fury")
-		and not IWin:IsBuffActive("player", "Tiger's Fury")
-		and IWin:GetTimeToDie() > 6 then
-			CastSpellByName("Tiger's Fury")
 	end
 end
 
