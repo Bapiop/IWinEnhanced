@@ -1,4 +1,4 @@
-# IWinEnhanced v2.0.6 (Updated for druids)
+# IWinEnhanced v2.0.7 (Updated for druids)
 
 1-button rotation macros for Turtle Druids, Paladins and Warriors.
 
@@ -15,6 +15,7 @@ Bapiop modifications:
 - **Shred Priority with Clearcasting**: Added condition for Shred to have casting priority over Claw/Rake/Rip when the Clearcasting buff is active. This allows free energy Shred casts for maximum damage output.
 - **Rake Logic**: Added a 1-second throttle to prevent Rake from being cast multiple times in quick succession when the DoT expires.
 - **Short Fight Detection**: Implemented logic to detect short fights (TTD < 15 seconds) and limit abilities accordingly.
+- **Faerie Fire auto target and cast**: Implemented command '/ff' to automatically target and cast Faerie Fire.
 
 ### Changed
 
