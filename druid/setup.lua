@@ -36,6 +36,7 @@ function SlashCmdList.IWINFF()
 		if UnitExists("target")
 			and not UnitIsDead("target")
 			and not UnitIsFriend("target", "player")
+			and UnitAffectingCombat("target")
 			and not IWin:IsBuffActive("target", "Faerie Fire")
 			and not IWin:IsBuffActive("target", "Faerie Fire (Feral)") then
 				found = true
