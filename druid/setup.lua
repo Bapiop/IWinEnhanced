@@ -24,3 +24,35 @@ function SlashCmdList.IWINDRUID(command)
 		DEFAULT_CHAT_FRAME:AddMessage(" /iwin frontshred [" .. IWin_Settings["frontShred"] .. "] : Setup for Front Shredding")
     end
 end
+
+SLASH_IWINFF1 = "/ff"
+function SlashCmdList.IWINFF()
+	IWin:InitializeRotation()
+	-- Find a nearby enemy that doesn't already have Faerie Fire
+	local tries = 12
+	local found = false
+	for i = 1, tries do
+		IWin:TargetEnemy()
+		if UnitExists("target")
+			and not UnitIsDead("target")
+			and not UnitIsFriend("target", "player")
+			and not IWin:IsBuffActive("target", "Faerie Fire")
+			and not IWin:IsBuffActive("target", "Faerie Fire (Feral)") then
+				found = true
+				break
+		end
+		TargetNearestEnemy()
+	end
+	if not found then
+		DEFAULT_CHAT_FRAME:AddMessage("/ff: No nearby enemy without Faerie Fire found.")
+		return
+	end
+
+	-- Cast feral/caster Faerie Fire on the selected target
+	IWin:FaerieFireFeral()
+	CastSpellByName("Faerie Fire")
+	CastSpellByName("Faerie Fire(Rank 4)")
+	CastSpellByName("Faerie Fire(Rank 3)")
+	CastSpellByName("Faerie Fire(Rank 2)")
+	CastSpellByName("Faerie Fire(Rank 1)")
+end
