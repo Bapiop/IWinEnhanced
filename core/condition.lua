@@ -385,7 +385,12 @@ end
 
 function IWin:IsBehind()
 	if not UnitExists("target") then return false end
-    return UnitXP("behind", "player", "target")
+	local creatureType = UnitCreatureType("target")
+	if creatureType == "Elemental" or creatureType == "Undead" or creatureType == "Mechanical" then
+		return false
+	else
+		return UnitXP("behind", "player", "target")
+	end
 end
 
 function IWin:GetTrainingDummy()

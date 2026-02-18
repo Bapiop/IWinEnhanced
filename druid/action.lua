@@ -409,6 +409,7 @@ function IWin:Shred()
 				CleveRoids
 				and CleveRoids.CheckImmunity
 				and CleveRoids.CheckImmunity("target", "bleed")
+				and IWin:IsBehind()
 			)
 		) then
 			IWin_CombatVar["queueGCD"] = false
