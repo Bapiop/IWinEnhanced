@@ -326,7 +326,7 @@ end
 -- Energy #######################################################################################################################################
 function IWin:IsEnergyAvailable(spell)
 	local energyRequired = IWin_EnergyCost[spell] + IWin_CombatVar["reservedEnergy"]
-	return (UnitMana("player") >= energyRequired) or IWin:IsBuffActive("player", "Clearcasting")
+	return (UnitMana("player") >= energyRequired) or IWin:IsBuffActive("player", "Clearcasting") or (UnitMana("player") > (100 - IWin_CombatVar["energyPerSecondPrediction"] * 2))
 end
 
 function IWin:IsEnergyCostAvailable(spell)
