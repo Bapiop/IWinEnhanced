@@ -12,7 +12,7 @@ IWin_RageCost = {
 }
 
 IWin_EnergyCost = {
-	["Claw"] = 39 - IWin:GetTalentRank(2, 1),
+	["Claw"] = 34,
 	["Cower"] = 20,
 	["Ferocious Bite"] = 35,
 	["Mangle"] = 45,
