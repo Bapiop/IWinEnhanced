@@ -1,4 +1,4 @@
-# IWinEnhanced v2.0.9 (Updated for druids)
+# IWinEnhanced v2.0.10 (Updated for druids)
 
 1-button rotation macros for Turtle Druids, Paladins and Warriors.
 
@@ -30,6 +30,7 @@ Bapiop modifications:
 - **Ferocious Bite Condition**: Modified to only cast with exactly 5 combo points, removing the premature casting on low TTD.
 - **Rip, Rake, Ferocious Bite on Short Fights**: Added checks to skip these abilities on short fights to conserve energy.
 - **Shred on Short Fights**: Limited Shred casting to only when Clearcasting is active on short fights, allowing only Claw otherwise.
+- **Claw Energy Logic**: Changed Claw to use `IsEnergyCostAvailable` instead of `IsEnergyAvailable`, allowing it to cast immediately at 34 energy without waiting for reserved energy buffer. Claw now functions as a proper filler ability.
 
 ## Mods Dependencies
 

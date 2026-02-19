@@ -284,7 +284,7 @@ function IWin:Claw()
 		and IWin_CombatVar["queueGCD"]
 		and not IWin:IsOnCooldown("Claw")
 		and IWin:IsStanceActive("Cat Form")
-		and IWin:IsEnergyAvailable("Claw") then
+		and IWin:IsEnergyCostAvailable("Claw") then
 			IWin_CombatVar["queueGCD"] = false
 			CastSpellByName("Claw")
 	end
